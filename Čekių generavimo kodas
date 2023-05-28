@@ -1,0 +1,49 @@
+function createReceipt() {
+
+let uzsakymoNumeris = "Užsakymas #" + "Parent group's ShoppingBasket's order_id";
+let name = "Parent group's ShoppingBasket's Creator's name";
+let surname = "Parent group's ShoppingBasket's Creator's surname";
+let tax = "Parent group's ShoppingBasket's totalAmount";
+let totalAmount = "Viso: " + "Parent group's ShoppingBasket's totalAmount:formatted as 1028.58";
+let orderDate = "Užsakymo data: " + "Parent group's ShoppingBasket's orderDate:formatted as 2023-05-28, 11:05";
+let amountTax ="kaina be PVM: " + parseFloat("Parent group's ShoppingBasket's totalAmount") * 0.79;
+var pdf = new jsPDF();
+
+var headerFontStyle = { font: "helvetica", style: "bold", size: 18 };
+var contentFontStyle = { font: "courier", style: "normal", size: 12 };
+var headingColor = "#337ab7";
+var contentColor = "#000000";
+var headingBackgroundColor = "#f5f5f5";
+var headingPadding = 5;
+var contentPadding = 2;
+var startX = 20;
+var startY = 20;
+var spacing = 12;
+
+pdf.setFont(headerFontStyle.font);
+pdf.setFontStyle(headerFontStyle.style);
+pdf.setFontSize(headerFontStyle.size);
+pdf.setTextColor(headingColor);
+pdf.setFillColor(headingBackgroundColor);
+pdf.setDrawColor(headingBackgroundColor);
+pdf.rect(startX, startY, 160, spacing, "F");
+pdf.text(uzsakymoNumeris, startX + headingPadding, startY + headingPadding);
+
+pdf.setFont(contentFontStyle.font);
+pdf.setFontStyle(contentFontStyle.style);
+pdf.setFontSize(contentFontStyle.size);
+pdf.setTextColor(contentColor);
+
+pdf.text(name + " " + surname, startX, startY + spacing + contentPadding);
+pdf.text(orderDate, startX, startY + (2 * spacing) + contentPadding);
+pdf.text(amountTax, startX, startY + (3 * spacing) + contentPadding);
+pdf.setFontStyle("bold"); // Set the font style to bold for the totalAmount
+pdf.text(totalAmount, startX, startY + (4 * spacing) + contentPadding);
+
+pdf.setDrawColor("#000000");
+pdf.setLineWidth(0.5);
+pdf.rect(startX, startY, 160, (4 * spacing) + (2 * contentPadding), "D");
+
+pdf.save("Užsakymas_" + "Parent group's ShoppingBasket's order_id" + ".pdf");
+}
+createReceipt();
